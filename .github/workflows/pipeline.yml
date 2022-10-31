@@ -1,0 +1,51 @@
+name: Deployment Pipeline
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+    types:
+      - opened
+      - synchronize
+env:
+  SEED: ${{secrets.SEED}}
+  PORT: ${{secrets.PORT}}
+  EXPIRATION_TOKEN: ${{secrets.SEED}}
+  SWAGGER_TITLE: ${{secrets.SWAGGER_TITLE}}
+  SWAGGER_VERSION: ${{secrets.SWAGGER_VERSION}}
+  SWAGGER_DESCRIPTION: ${{secrets.SWAGGER_DESCRIPTION}}
+  SWAGGER_CONTACT_NAME: ${{secrets.SWAGGER_CONTACT_NAME}}
+  SWAGGER_CONTACT_URL: ${{secrets.SWAGGER_CONTACT_URL}}
+  SWAGGER_SERVER_URL: ${{secrets.SWAGGER_SERVER_URL}}
+  SWAGGER_SERVER_DESCRIPTION: ${{secrets.SWAGGER_SERVER_DESCRIPTION}}
+  SWAGGER_OPTIONS_BASEPATH: ${{secrets.SWAGGER_OPTIONS_BASEPATH}}
+  SWAGGER_OPTIONS_APIS: ${{secrets.SWAGGER_OPTIONS_APIS}}
+jobs:
+  deploy:
+    permissions: write-all
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.10.0
+        with:
+          access_token: ${{ github.token }}
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          node-version: 16
+      - name: Install dependencies
+        run: |
+          npm install
+          npm install -D
+      - name: run Lint
+        run: npm run lint
+      - name: run Test
+        #if: ${{github.event_name == 'push'}}
+        run: npm run test
+      - name: run Build
+        run: npm run build

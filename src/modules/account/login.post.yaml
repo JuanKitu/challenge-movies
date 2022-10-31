@@ -1,0 +1,29 @@
+/account/login:
+  post:
+    summary: Return the credentials.
+    description: This request is used to access the other routes
+    responses:
+      '201':    # status code
+        description: A JSON of user credentials
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: boolean
+                code:
+                  type: string
+                message:
+                  type: string
+                payload:
+                  type: object
+                  properties:
+                    token:
+                      type: string
+            example:
+              error: false
+              code: "201"
+              message: "login successful"
+              payload:
+                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50IjoiNCIsImlhdCI6MTY2NzE2MDk2OSwiZXhwIjoxNjY3MTYzNTYxfQ.qUiwtSvbLPW92jc_dIG--bn9526IQSSQanQmW2s8N_Q"

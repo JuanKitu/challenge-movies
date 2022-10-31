@@ -1,0 +1,28 @@
+/* import { Entity, Schema } from 'redis-om';
+import client from '../database/redis.db';
+
+interface AccountCache {
+  account: number;
+  roleList: string[];
+  permissionList: string;
+  petitionList: string;
+}
+// eslint-disable-next-line no-redeclare
+class AccountCache extends Entity {}
+
+const accountCacheSchema = new Schema(
+  AccountCache,
+  {
+    account: { type: 'number' },
+    roleList: { type: 'string[]' },
+    permissionList: { type: 'string' },
+    petitionList: { type: 'string' },
+  },
+  {
+    dataStructure: 'HASH',
+  }
+); */
+/* export const accountCacheRepository = client.fetchRepository(accountCacheSchema);
+accountCacheRepository.createIndex().then(); */
+
+// asd().then();

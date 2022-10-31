@@ -1,0 +1,6 @@
+export interface bodyResponse {
+  error: boolean;
+  code: number;
+  message: string;
+  payload?: any;
+}
