@@ -1,11 +1,9 @@
 import { Request, Response } from 'express';
-import { AccountsI } from '../../models/account';
+import { AccountsI } from '../../interfaces/account';
 import { accountService } from '../../services/Account.service';
 import { Encryption } from '../../services/crypto';
 import { encryptPassword } from '../../services/crypto.services';
 import { verifyToken } from '../../services/jwt.services';
-import { roleService } from '../../services/Rols.service';
-import { accountRoleService } from '../../services/AccountRole.service';
 import { sendError, sendSuccess } from '../../core/traffic.core';
 import registerMiddleware from '../../middleware/register.middleware';
 // import { accountService } from '../../services/Account.service';
@@ -32,16 +30,6 @@ async function postRegister(req: Request, res: Response) {
     if (!responseAccount.account) {
       return sendError(res, 501, 'error in create account id is undefined');
     }
-    const roleList = await roleService.findAll({
-      defaultRole: true,
-    });
-    const setRoles = roleList.map((role) => {
-      return {
-        account: responseAccount.account,
-        role: role.role,
-      };
-    });
-    await accountRoleService.bulkCreate(setRoles);
     return sendSuccess(res, 'Account created', {});
   } catch (err: any) {
     return sendError(res, 501, err.message);
