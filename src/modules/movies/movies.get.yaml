@@ -1,0 +1,173 @@
+/movies/movies?filter=name:the%20bad&orderby=name:DESC:
+  get:
+    summary: Find list of movies.
+    description: This request is used to get a list of Movies.
+    consumes:
+      - application/json
+    parameters:
+      - in: query
+        name: filter
+        description: It is used to filter the movies according to the field.
+        schema:
+          type: integer
+          example: movie:the%20bad
+        required: false
+      - in: query
+        name: orderby
+        description: It is used to order the movies according to the field in descending or ascending order.
+        schema:
+          type: integer
+          example: movie:ASC
+        required: false
+      - in: header
+        name: token
+        description: Token valid for to access this petition.
+        schema:
+          type: string
+          format: uuid
+          example:
+            token: "77e1c83b-7bb0-437b-bc50-a7a58e5660ac"
+        required: true
+    responses:
+      '201':    # status code
+        description: This request is used to get a movie list.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: boolean
+                code:
+                  type: string
+                message:
+                  type: string
+                payload:
+                  type: object
+                  properties:
+                    moviesList:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          movie:
+                            type: integer
+                          name:
+                            type: string
+                          duration:
+                            type: string
+                          languages:
+                            type: string
+                          actors:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                MovieCharacters:
+                                  type: object
+                                  properties:
+                                    movie:
+                                      type: integer
+                                    actor:
+                                      type: integer
+                                    name:
+                                      type: string
+                                    gender:
+                                      type: string
+                                artist:
+                                  type: integer
+                                firstName:
+                                  type: string
+                                lastName:
+                                  type: string
+                                gender:
+                                  type: string
+                                birthdate:
+                                  type: string
+                                height:
+                                  type: integer
+                            actors:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  height:
+                                    type: integer
+                                  MovieCharacters:
+                                    type: object
+                                    properties:
+                                      actor:
+                                        type: integer
+                                      name:
+                                        type: string
+                                      gender:
+                                        type: string
+                                      movie:
+                                        type: integer
+                                  artist:
+                                    type: integer
+                                  firstName:
+                                    type: string
+                                  lastName:
+                                    type: string
+                                  gender:
+                                    type: string
+                                  birthdate:
+                                    type: string
+                          gender:
+                            type: string
+                          budget:
+                            type: string
+                          releaseDate:
+                            type: string
+                          director:
+                            type: integer
+                          directors:
+                            type: object
+                            properties:
+                              gender:
+                                type: string
+                              birthdate:
+                                type: string
+                              height:
+                                type: integer
+                              artist:
+                                type: integer
+                              firstName:
+                                type: string
+                              lastName:
+                                type: string
+            example:
+              error: false
+              code: "201"
+              message: "Account created"
+              payload:
+                moviesList:
+                  actors:
+                    MovieCharacters:
+                      actor: 7
+                      gender: Masculine
+                      movie: 4
+                      name: "First Scalped Nazi"
+                    artist: 7
+                    birthdate: "1963-03-27"
+                    firstName: Quentin
+                    gender: Masculine
+                    height: 1.85
+                    lastName: Tarantino
+                  budget: "US$70 000 000"
+                  director: 7
+                  directors:
+                    artist: 7
+                    birthdate: "1963-03-27"
+                    firstName: Quentin
+                    gender: Masculine
+                    height: 1.85
+                    lastName: Tarantino
+                  duration: "02:33:00"
+                  gender: "War Action Comedy Drama"
+                  languages: "English German French"
+                  movie: 4
+                  name: "Inglourious Basterds"
+                  releaseDate: "2022-05-20"
+
