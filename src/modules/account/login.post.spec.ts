@@ -2,7 +2,7 @@ import request from 'supertest';
 import { accountService } from '../../services/Account.service';
 import sequelize from '../../database/database';
 import app from '../../app';
-import { verifyPassword } from '../../services/crypto.services';
+import { createToken } from '../../services/jwt.services';
 
 const api = request(app);
 
@@ -12,23 +12,24 @@ const account = {
   password: 'test',
 };
 
-const res = api.post('/api/account/register');
-res.send(account);
-
 beforeAll(async () => {
   await sequelize.sync();
   const control = await accountService.findAll();
   if (control && control.length !== 0) {
     await accountService.delete({}, true);
   }
+  const res = api.post('/api/account/register');
+  await res.send(account);
 });
 
 afterAll(async () => {
   await sequelize.close();
 });
 
-describe('User registration', () => {
+describe('POST Login', () => {
   test('returns 201 OK when signup request is valid', (done) => {
+    const res = api.post('/api/account/login');
+    res.send(account);
     res.then((response) => {
       expect(response.status).toBe(201);
       done();
@@ -36,41 +37,61 @@ describe('User registration', () => {
   });
 
   test('returns success err when signup request is valid', (done) => {
+    const res = api.post('/api/account/login');
+    res.send(account);
     res.then((response) => {
-      expect(response.error).toBe(false);
+      expect(response.body.error).toBe(false);
       done();
     });
   });
-  test('save users to database', (done) => {
-    res.then(async () => {
-      const queryAccount = await accountService.findAll({
-        email: 'test@test.com',
-      });
-      expect(queryAccount.length).toBe(1);
+  test('returns err and error username when email is not valid', (done) => {
+    const res = api.post('/api/account/login');
+    res.send({
+      accountName: 'test',
+      email: 'userIncorrect@test.com',
+      password: 'test',
+    });
+    res.then((response) => {
+      expect(response.body.error).toBe(true);
+      expect(response.status).toBe(505);
       done();
     });
   });
-  test('save accountName and email to database', (done) => {
-    res.then(async () => {
-      const queryAccount = await accountService.findAll({
-        email: 'test@test.com',
-      });
-      const newAccount = queryAccount[0];
-      expect(newAccount).not.toBe(undefined);
-      expect(newAccount.accountName).toBe('test');
-      expect(newAccount.email).toBe('test@test.com');
+  test('returns err and error username when password is not valid', (done) => {
+    const res = api.post('/api/account/login');
+    res.send({
+      accountName: 'test',
+      email: 'test@test.com',
+      password: 'incorrect',
+    });
+    res.then((response) => {
+      expect(response.body.error).toBe(true);
+      expect(response.status).toBe(505);
       done();
     });
   });
-  test('hashes the password in database', (done) => {
-    res.then(async () => {
-      const queryAccount = await accountService.findAll({
-        email: 'test@test.com',
-      });
-      const newAccount = queryAccount[0];
-      const newHash = await verifyPassword('test', newAccount.salt);
-      expect(newAccount.hash).not.toBe('test');
-      expect(newAccount.hash).toBe(newHash);
+  test('returns catch when email is undefined', (done) => {
+    const res = api.post('/api/account/login');
+    res.send({
+      accountName: 'test',
+      email: undefined,
+      password: 'test',
+    });
+    res.then((response) => {
+      expect(response.body.error).toBe(true);
+      expect(response.status).toBe(501);
+      done();
+    });
+  });
+  test('returns success err when you are singing', (done) => {
+    const res = api.post('/api/account/login');
+    const token = createToken('token') || '';
+    res.set('token', token);
+    res.send(account);
+    res.then((response) => {
+      expect(response.status).toBe(500);
+      expect(typeof token).toBe('string');
+      expect(response.body.error).toBe(true);
       done();
     });
   });
