@@ -1,0 +1,83 @@
+/movies/artist:
+  post:
+    summary: Create new artist.
+    description: This request is used to create a new artist.
+    consumes:
+      - application/json
+    parameters:
+      - in: header
+        name: token
+        description: Token valid for to access this petition.
+        schema:
+          type: string
+          format: uuid
+          example:
+            token: "77e1c83b-7bb0-437b-bc50-a7a58e5660ac"
+        required: true
+      - in: body
+        name: body
+        description: Fields for create a artist.
+        schema:
+          type: object
+          required:
+            - firstName
+            - lastName
+            - gender
+            - birthdate
+            - height
+          properties:
+            firstName:
+              type: string
+              example: "test"
+            lastName:
+              type: string
+              example: "test1"
+            gender:
+              type: string
+              example: "Masculine"
+            birthdate:
+              type: string
+              example: "1978/10/20"
+            height:
+              type: number
+              example: 1.87
+    responses:
+      '201':    # status code
+        description: This request is used create new artist.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: boolean
+                code:
+                  type: string
+                message:
+                  type: string
+                payload:
+                  type: object
+                  properties:
+                    artist:
+                      type: number
+                    firsName:
+                      type: string
+                    lastName:
+                      type: string
+                    gender:
+                      type: string
+                    birthdate:
+                      type: string
+                    height:
+                      type: number
+            example:
+              error: false
+              code: "201"
+              message: "Account created"
+              payload:
+                artist: 1
+                firstName: "test"
+                lastName: "test1"
+                gender: "Masculine"
+                birthdate: "1978/10/20"
+                height: 1.87

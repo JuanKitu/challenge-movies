@@ -1,0 +1,47 @@
+/account/register:
+  post:
+    summary: Create new account.
+    description: This request is used to register a new account.
+    consumes:
+      - application/json
+    parameters:
+      - in: body
+        name: user
+        description: Fields for create a account.
+        schema:
+          type: object
+          required:
+            - accountName
+            - email
+            - password
+          properties:
+            accountName:
+              type: string
+              example: "test"
+            email:
+              type: string
+              example: "test@test.com"
+            password:
+              type: string
+              example: "test"
+    responses:
+      '201':    # status code
+        description: This request is used to register a new account.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: boolean
+                code:
+                  type: string
+                message:
+                  type: string
+                payload:
+                  type: object
+            example:
+              error: false
+              code: "201"
+              message: "Account created"
+              payload:
