@@ -25,13 +25,21 @@ _The installation of the server is very simple, you just have to install the nod
 ```
 npm install
 ```
-_the command below is for installing development dependencies such as nodemon and types. Not needed for testing or distribution use_
+
+_the command below is for installing development dependencies such as nodemon and types. Not needed for testing or
+distribution use_
 
 ```
 npm install -D
 ```
 
-_Once the libraries are installed, the following [.env]() file must be downloaded to access the basic configuration of the server_
+_Once the libraries are installed, the
+following [.env](https://drive.google.com/file/d/1UEsaQKt3v3WBWw9Xx7pJHQmI7i80T2gx/view?usp=share_link) file must be
+downloaded to access the basic configuration of the server, this file must be added in the following path:_
+
+```
+/config
+```
 
 ## Running the project ⚡
 
