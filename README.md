@@ -1,5 +1,5 @@
 # Challenge Movies - Backend NodeJS + Typescript
-
+[![Deployment Pipeline](https://github.com/JuanKitu/challenge-movies/actions/workflows/pipeline.yml/badge.svg)](https://github.com/JuanKitu/challenge-movies/actions/workflows/pipeline.yml)
 _This is the small documentation to make the API-REST work_
 
 ## Starting 🚀
@@ -36,13 +36,42 @@ _Once the libraries are installed, the following [.env]() file must be downloade
 ## Running the project ⚡
 
 _To start the project, only the following command is necessary, with this we also make a typescript compilation:_
+
 ```
 npm start
 ```
 
-_If you want to run the program with nodemon and without having to compile, well, ts-node is used, you should use the following command:_
+_If you want to run the program with nodemon and without having to compile, well, ts-node is used, you should use the
+following command:_
+
 ```
 npm run dev
+```
+
+## Running the unit tests ⚙️
+
+_To run the tests on the project you just have to use the following command:_
+
+```
+npm run test
+```
+
+## Functionality 📦
+
+_These are the following developed endpoints:_
+
+* Endpoints for authentication using JWT.<br/>
+  Include an endpoint for refreshing the JWT access token.
+* Endpoint for retrieving movies.<br/>
+  It should be allowed to filter and sort by some field.
+* Endpoint for retrieving the information (director included) of a specific episode of a TV Show
+* Endpoint for adding a new object (it could be for any entity you like).
+
+_The paths for each of these endpoints can be seen in the swagger documentation once the server has been run at the
+following address:_
+
+```
+http://localhost:3000/docs
 ```
 
 ## Authors ✒️
