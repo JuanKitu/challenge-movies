@@ -83,6 +83,10 @@ following address:_
 http://localhost:3000/docs
 ```
 
+## ER Model 💾
+
+![alt text](./database.png)
+
 ## Authors ✒️
 
 * **Juan Manuel Santa Cruz** - [JuanKitu](https://gitlab.com/JuanKitu)
