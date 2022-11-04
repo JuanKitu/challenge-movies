@@ -42,7 +42,7 @@ jobs:
         run: |
           npm install
           npm install -D
-          npm i sequelize
+          npm i -g sequelize
       - name: run Lint
         run: npm run lint
       - name: run Test
