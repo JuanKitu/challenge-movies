@@ -12,6 +12,7 @@ _First we need to install nodeJS 16.15.0:_
 
 * [nodeJS v16.15.0 x64 win (Recommend)](https://nodejs.org/download/release/v16.15.0/node-v16.15.0-x64.msi)
 * [nodeJS v16.15.0 x86 win (Recommend)](https://nodejs.org/download/release/v16.15.0/node-v16.15.0-x86.msi)
+
 _Once the program is installed, access the console to install typeScript with the following command:Once the program is installed, access the console to install typeScript with the following command:_
 
 ```
