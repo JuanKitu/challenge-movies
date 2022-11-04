@@ -55,7 +55,8 @@ export default class TVShows extends Model<TVShowsI, TVShowsCreationAttributes> 
   })
   public languages!: string;
 
-  @BelongsToMany(() => Artists, () => TVShowCharacters) artist!: Array<Artists & { TVShowCharacters: TVShowCharacters }>;
+  @BelongsToMany(() => Artists, () => TVShowCharacters)
+  actors!: Artists[];
 
   @HasMany(() => Seasons) seasons!: Seasons[];
 }
