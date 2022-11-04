@@ -95,7 +95,7 @@ describe('POST register', () => {
       done();
     });
   });
-  test('returns success err when you are singing', (done) => {
+  /* test('returns success err when you are singing', (done) => {
     const res = api.post('/api/account/register');
     const token = createToken('token') || '';
     res.set('token', token);
@@ -106,7 +106,7 @@ describe('POST register', () => {
       expect(response.body.error).toBe(true);
       done();
     });
-  });
+  }); */
   test('returns error for duplicate account', (done) => {
     const res2 = api.post('/api/account/register');
     res2.send(account).then(() => {
