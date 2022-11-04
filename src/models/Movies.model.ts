@@ -42,7 +42,7 @@ export default class Movies extends Model<MoviesI, MoviesCreationAttributes> imp
     type: DataType.TIME,
     allowNull: false,
   })
-  public duration!: Date;
+  public duration!: string;
 
   @Column({
     type: DataType.DATE,
@@ -64,5 +64,6 @@ export default class Movies extends Model<MoviesI, MoviesCreationAttributes> imp
 
   @BelongsTo(() => Artists) directors!: Artists;
 
-  @BelongsToMany(() => Artists, () => MovieCharacters) artist!: Array<Artists & { MovieCharacters: MovieCharacters }>;
+  @BelongsToMany(() => Artists, () => MovieCharacters)
+  actors!: Artists[];
 }

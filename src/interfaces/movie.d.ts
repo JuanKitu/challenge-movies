@@ -5,7 +5,7 @@ export interface MoviesI {
   boxOffice?: string;
   gender?: string;
   releaseDate?: Date;
-  duration?: Date;
+  duration?: string;
   languages?: string;
   director?: number;
 }
