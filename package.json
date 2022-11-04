@@ -10,7 +10,8 @@
     "dev-ts": "ts-node src/index.ts",
     "lint": "eslint src/**/*.ts --ext .ts",
     "lint-fix": "eslint src/**/*.ts --ext .ts --fix",
-    "test": "jest --runInBand --forceExit"
+    "test": "jest --runInBand --forceExit",
+    "test-coverage": "jest --watchAll --coverage"
   },
   "repository": {
     "type": "git",
