@@ -11,6 +11,7 @@
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint", "prettier", "jest"],
+  "ignorePatterns": ["**/**/*.yaml"],
   "rules": {
     "linebreak-style": "off",
     "indent": "off",
