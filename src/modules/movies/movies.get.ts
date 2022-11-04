@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Op } from 'Sequelize';
+import { Op } from 'sequelize';
 import { sendError, sendSuccess } from '../../core/traffic.core';
 import { movieService } from '../../services/Movie.service';
 import Artists from '../../models/Artists.model';
