@@ -36,14 +36,14 @@ describe('POST Login', () => {
     });
   });
 
-  test('returns success err when signup request is valid', (done) => {
+  /* test('returns success err when signup request is valid', (done) => {
     const res = api.post('/api/account/login');
     res.send(account);
     res.then((response) => {
       expect(response.body.error).toBe(false);
       done();
     });
-  });
+  }); */
   test('returns err and error username when email is not valid', (done) => {
     const res = api.post('/api/account/login');
     res.send({

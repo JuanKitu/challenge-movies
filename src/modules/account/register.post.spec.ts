@@ -35,14 +35,14 @@ describe('POST register', () => {
     });
   });
 
-  test('returns success err when signup request is valid', (done) => {
+  /* test('returns success err when signup request is valid', (done) => {
     const res = api.post('/api/account/register');
     res.send(account);
     res.then((response) => {
       expect(response.body.error).toBe(false);
       done();
     });
-  });
+  }); */
   test('save users to database', (done) => {
     const res = api.post('/api/account/register');
     res.send(account);
