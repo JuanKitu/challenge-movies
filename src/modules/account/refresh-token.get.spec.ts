@@ -16,7 +16,7 @@ describe('GET Refresh-Token', () => {
       done();
     });
   });
-  /* test('returns success err when signup request is valid', (done) => {
+  test('returns success err when signup request is valid', (done) => {
     const res = api.get('/api/account/refresh-token');
     const token = createToken('token') || '';
     res.set('token', token);
@@ -27,5 +27,5 @@ describe('GET Refresh-Token', () => {
       expect(response.body.error).toBe(false);
       done();
     });
-  }); */
+  });
 });
