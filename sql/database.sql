@@ -8,38 +8,84 @@ CREATE TABLE "Accounts"
     "accountName" VARCHAR UNIQUE,
     PRIMARY KEY ("account")
 );
-CREATE TABLE "Roles"
-(
-    role          SERIAL       NOT NULL,
-    "roleName"    VARCHAR(200) NOT NULL,
-    "defaultRole" BOOLEAN      NOT NULL DEFAULT FALSE
-PRIMARY KEY ("role")
-);
-CREATE TABLE "AccountRoles"
-(
-    account INTEGER NOT NULL,
-    role    INTEGER NOT NULL,
-    PRIMARY KEY ("account", "role"),
-    FOREIGN KEY ("role") REFERENCES "Roles",
-    FOREIGN KEY ("account") REFERENCES "Accounts"
-);
 
-CREATE TABLE "Permissions"
+CREATE TABLE "Artists"
 (
-    "permission" SERIAL       NOT NULL,
-    role         INTEGER      NOT NULL,
-    "routeName"  VARCHAR(200) NOT NULL,
-    PRIMARY KEY ("permission"),
-    FOREIGN KEY ("role") REFERENCES "Roles"
+    "artist"    SERIAL      NOT NULL,
+    "fistName"  VARCHAR(50) NOT NULL,
+    "lastName"  VARCHAR(50) NOT NULL,
+    "gender"    VARCHAR(50) NOT NULL,
+    "birthdate" DATE        NOT NULL,
+    "height"    FLOAT         NOT NULL,
+    PRIMARY KEY ("artist")
 );
-CREATE TABLE "Petitions"
+CREATE TABLE "Movies"
 (
-    petition       SERIAL  NOT NULL,
-    "permission"   INTEGER NOT NULL,
-    "petitionName" VARCHAR(10),
-    PRIMARY KEY ("petition", "permission"),
-    FOREIGN KEY ("permission") REFERENCES "Permissions"
+    "movie"       SERIAL       NOT NULL,
+    "name"        VARCHAR(150) NOT NULL,
+    "budget"      VARCHAR(50),
+    "boxOffice"   VARCHAR(50),
+    "gender"      VARCHAR(50)  NOT NULL,
+    "releaseDate" DATE         NOT NULL,
+    "duration"    TIME         NOT NULL,
+    "languages"   VARCHAR(200),
+    "director"    INT          NOT NULL,
+    FOREIGN KEY ("director") REFERENCES "Artists",
+    PRIMARY KEY ("movie")
 );
-
-INSERT INTO "Roles"(role, "roleName", "defaultRole")
-VALUES (default, 'customer_user', true), (default, 'admin_user', false);
+CREATE TABLE "MovieCharacters"
+(
+    "movieCharacter" SERIAL       NOT NULL,
+    "actor"          INT          NOT NULL,
+    "movie"          INT          NOT NULL,
+    "name"           VARCHAR(100) NOT NULL,
+    "gender"         VARCHAR(50)  NOT NULL,
+    FOREIGN KEY ("actor") REFERENCES "Artists",
+    FOREIGN KEY ("movie") REFERENCES "Movies",
+    PRIMARY KEY ("movieCharacter", "movie", "actor")
+);
+CREATE TABLE "TVShows"
+(
+    "TVShow"      SERIAL       NOT NULL,
+    "name"        VARCHAR(150) NOT NULL,
+    "gender"      VARCHAR(50)  NOT NULL,
+    "releaseDate" DATE         NOT NULL,
+    "languages"   VARCHAR(200),
+    "director"    INT          NOT NULL,
+    "description" VARCHAR(200),
+    FOREIGN KEY ("director") REFERENCES "Artists",
+    PRIMARY KEY ("TVShow")
+);
+CREATE TABLE "TVShowCharacters"
+(
+    "TVShowCharacter" SERIAL       NOT NULL,
+    "actor"          INT          NOT NULL,
+    "TVShow"          INT          NOT NULL,
+    "name"           VARCHAR(100) NOT NULL,
+    "gender"         VARCHAR(50)  NOT NULL,
+    FOREIGN KEY ("actor") REFERENCES "Artists",
+    FOREIGN KEY ("TVShow") REFERENCES "TVShows",
+    PRIMARY KEY ("TVShowCharacter", "TVShow", "actor")
+);
+CREATE TABLE "Seasons"
+(
+    "season" SERIAL NOT NULL,
+    "name"   VARCHAR(50) NOT NULL,
+    "description" VARCHAR (200),
+    "TVShow" INT NOT NULL,
+    FOREIGN KEY ("TVShow") REFERENCES "TVShows",
+    PRIMARY KEY ("season","TVShow")
+);
+CREATE TABLE "Episodes"
+(
+    "episode" SERIAL NOT NULL,
+    "number" INT,
+    "name" VARCHAR (50),
+    "description" VARCHAR (200),
+    "director" INT,
+    "TVShow" INT NOT NULL,
+    "season" INT NOT NULL,
+    FOREIGN KEY ("season", "TVShow") REFERENCES "Seasons",
+    FOREIGN KEY ("director") REFERENCES "Artists",
+    PRIMARY KEY ("episode","season", "TVShow")
+);

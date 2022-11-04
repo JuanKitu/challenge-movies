@@ -1,0 +1,39 @@
+/account/refresh-token:
+  get:
+    summary: Refresh the token.
+    description: This request is used to refresh the current token
+    parameters:
+      - in: header
+        name: token
+        description: Token valid for to access this petition.
+        schema:
+          type: string
+          format: uuid
+          example:
+            token: "77e1c83b-7bb0-437b-bc50-a7a58e5660ac"
+        required: true
+    responses:
+      '201':    # status code
+        description: A JSON of user credentials
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: boolean
+                code:
+                  type: string
+                message:
+                  type: string
+                payload:
+                  type: object
+                  properties:
+                    token:
+                      type: string
+            example:
+              error: false
+              code: "201"
+              message: "login refreshed"
+              payload:
+                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50IjoiNCIsImlhdCI6MTY2NzE2MDk2OSwiZXhwIjoxNjY3MTYzNTYxfQ.qUiwtSvbLPW92jc_dIG--bn9526IQSSQanQmW2s8N_Q"

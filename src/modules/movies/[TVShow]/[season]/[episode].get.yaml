@@ -1,0 +1,105 @@
+/movies/{TVShow}/{season}/{episode}:
+  get:
+    summary: Find specific episode  .
+    description: This request is used to get a specific episode of TVShow.
+    consumes:
+      - application/json
+    parameters:
+      - in: path
+        name: TVShow
+        description: The TVShow ID.
+        schema:
+          type: integer
+          minimum: 1
+          example: 1
+        required: true
+      - in: path
+        name: season
+        description: The season ID.
+        schema:
+          type: integer
+          minimum: 1
+          example: 1
+        required: true
+      - in: path
+        name: episode
+        description: The episode ID.
+        schema:
+          type: integer
+          minimum: 1
+          example: 1
+        required: true
+      - in: header
+        name: token
+        description: Token valid for to access this petition.
+        schema:
+          type: string
+          format: uuid
+          example:
+            token: "77e1c83b-7bb0-437b-bc50-a7a58e5660ac"
+        required: true
+    responses:
+      '201':    # status code
+        description: This request is used to get specific episode.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: boolean
+                code:
+                  type: string
+                message:
+                  type: string
+                payload:
+                  properties:
+                    TVShow:
+                      type: integer
+                    description:
+                      type: string
+                    director:
+                      type: integer
+                    directors:
+                      properties:
+                        artist:
+                          type: integer
+                        birthdate:
+                          type: string
+                        firstName:
+                          type: string
+                        gender:
+                          type: string
+                        height:
+                          type: integer
+                        lastName:
+                          type: string
+                      type: object
+                    episode:
+                      type: integer
+                    name:
+                      type: string
+                    number:
+                      type: integer
+                    season:
+                      type: integer
+                  type: object
+            example:
+              error: false
+              code: "201"
+              message: "Account created"
+              payload:
+                episode: 1
+                TVShow: 1
+                season: 2
+                director: 10
+                number: 1
+                name: "USS Callister"
+                description: "By day Robert Daly is the CTO of..."
+                directors:
+                  artist: 10
+                  firstName: "William"
+                  lastName: "Bridges"
+                  gender: "Masculine"
+                  birthdate: "1940-06-03"
+                  height: 1.76

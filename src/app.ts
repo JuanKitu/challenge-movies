@@ -5,7 +5,6 @@ import cors from 'cors';
 import path from 'path';
 import { requestHandler } from './middleware/routingModule.middleware';
 import { authentication } from './middleware/authentication.middleware';
-import { rolesMiddleware } from './middleware/rolesModule.middleware';
 import parserMiddleware from './middleware/parser.middleware';
 import { pathToTreeFile } from './core/pathToTreeFile.core';
 
@@ -23,7 +22,7 @@ try {
   app.use(express.static(path.resolve(__dirname, '../public')));
   const tree = pathToTreeFile('../modules');
   app.set('tree', tree);
-  app.route('/api/*').all(parserMiddleware, authentication, rolesMiddleware, requestHandler);
+  app.route('/api/*').all(parserMiddleware, authentication, requestHandler);
 } catch (error: any) {
   // ServerLog.error(`can't create path tree in ${error.message}`);
   process.exit();
