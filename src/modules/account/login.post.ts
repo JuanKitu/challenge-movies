@@ -17,7 +17,6 @@ async function postLogin(req: Request, res: Response) {
         error: true,
       });
     }
-    if (!account.password) return sendError(res, 400, 'password is undefined');
     const selectAccount = await accountService.findOne(
       {
         email: account.email,
@@ -27,17 +26,11 @@ async function postLogin(req: Request, res: Response) {
     if (!selectAccount) {
       return sendError(res, 505, 'account not exist');
     }
-    if (!selectAccount.account) {
-      return sendError(res, 505, 'account not exist');
-    }
-    const newHash = await verifyPassword(account.password, selectAccount.salt);
+    const newHash = await verifyPassword(account.password || '', selectAccount.salt);
     if (newHash !== selectAccount.hash) {
       return sendError(res, 505, 'password is wrong');
     }
-    const token = createToken(selectAccount.account.toString());
-    if (!token) {
-      return sendError(res, 505, 'token creation error');
-    }
+    const token = createToken((selectAccount.account || '').toString()) || '';
     res.set('token', [token]);
     return sendSuccess(res, 'login successful', { token });
   } catch (err: any) {
