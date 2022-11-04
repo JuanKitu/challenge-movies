@@ -83,7 +83,7 @@ describe('POST Login', () => {
       done();
     });
   });
-  test('returns success err when you are singing', (done) => {
+  /* test('returns success err when you are singing', (done) => {
     const res = api.post('/api/account/login');
     const token = createToken('token') || '';
     res.set('token', token);
@@ -94,5 +94,5 @@ describe('POST Login', () => {
       expect(response.body.error).toBe(true);
       done();
     });
-  });
+  }); */
 });
