@@ -2,7 +2,7 @@
 /* eslint-disable max-classes-per-file */
 import { Model, ModelCtor } from 'sequelize-typescript';
 import { MakeNullishOptional } from 'sequelize/types/utils';
-import { Attributes, BulkCreateOptions, WhereOptions, Includeable } from 'sequelize/types';
+import { Attributes, BulkCreateOptions, WhereOptions, Includeable, Order } from 'sequelize/types';
 import { BaseRepository } from './repository';
 import { BaseError } from './baseError.core';
 
@@ -19,11 +19,17 @@ export default abstract class SequelizeBaseRepository<M extends Model> implement
     this.model = model;
   }
 
-  public async findAll(query?: WhereOptions<Attributes<M>>, attributes?: string[], include?: Includeable | Includeable[] | undefined): Promise<M[]> {
+  public async findAll(
+    query?: WhereOptions<Attributes<M>>,
+    attributes?: string[],
+    include?: Includeable | Includeable[] | undefined,
+    order?: Order | undefined
+  ): Promise<M[]> {
     const resource = await this.model.findAll({
       where: query,
       attributes,
       include,
+      order,
     });
     if (resource) {
       return resource;
@@ -44,10 +50,17 @@ export default abstract class SequelizeBaseRepository<M extends Model> implement
     throw new ResourceNotFoundError();
   }
 
-  public async findOne(query: WhereOptions<Attributes<M>>, attributes?: string[]): Promise<M | null> {
+  public async findOne(
+    query: WhereOptions<Attributes<M>>,
+    attributes?: string[],
+    include?: Includeable | Includeable[] | undefined,
+    order?: Order | undefined
+  ): Promise<M | null> {
     const resource = await this.model.findOne({
       where: query,
       attributes,
+      include,
+      order,
     });
     return resource;
 
