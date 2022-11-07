@@ -39,7 +39,7 @@ export default async function movies(req: Request, res: Response) {
         boxOffice: '',
         gender: '',
         releaseDate: new Date(),
-        duration: '',
+        duration: '01:01:01',
         languages: '',
         director: -1,
       };
@@ -52,6 +52,12 @@ export default async function movies(req: Request, res: Response) {
         if (!key) return [];
         // @ts-ignore
         if (typeof controlFilter[key] === 'string') {
+          // @ts-ignore
+          if (controlFilter[key].includes(':')) {
+            const [, ...rest] = newFilter;
+            const timeFilter = rest.join(':');
+            return [key, timeFilter];
+          }
           // @ts-ignore
           return process.env.NODE_ENV === 'test' ? [key, { [Op.like]: `%${newFilter[1]}%` }] : [key, { [Op.iLike]: `%${newFilter[1]}%` }];
         }

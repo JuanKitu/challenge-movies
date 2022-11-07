@@ -1,5 +1,6 @@
 # Challenge Movies - Backend NodeJS + Typescript
 [![Deployment Pipeline](https://github.com/JuanKitu/challenge-movies/actions/workflows/pipeline.yml/badge.svg)](https://github.com/JuanKitu/challenge-movies/actions/workflows/pipeline.yml)
+
 _This is the small documentation to make the API-REST work_
 
 ## Starting 🚀
